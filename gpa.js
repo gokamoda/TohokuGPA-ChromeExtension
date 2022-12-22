@@ -31,16 +31,16 @@ function getGPA() {
       if (time_span in gpas) {
         gpas[time_span]["cred"] += cred;
         gpas[time_span]["point"] += point;
-        gpas[time_span][grade] += 1;
+        gpas[time_span][grade] += cred;
       } else {
         gpas[time_span] = { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
         gpas[time_span]["cred"] += cred;
         gpas[time_span]["point"] += point;
-        gpas[time_span][grade] += 1;
+        gpas[time_span][grade] += cred;
       }
       gpas["total"]["cred"] += cred;
       gpas["total"]["point"] += point;
-      gpas["total"][grade] += 1;
+      gpas["total"][grade] += cred;
     }
   }
   return gpas;
