@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "TohokuGPA",
+  "version": "1.0",
+  "action": {
+    "default_icon":{
+      "32": "images/32.png"
+    }
+  },
+  "icons":{
+    "128":  "images/128.png"
+  },
+  "default_locale": "ja_JP",
+  "description": "Calculates GPA",
+  "permissions": ["activeTab","tabs","scripting"],
+  "content_scripts":[{
+    "matches": [
+      "https://www.srp.tohoku.ac.jp/sa/wssrlstr.do?clearAccessData=true&contenam=wssrlstr&kjnmnNo=29",
+      "https://gkms2.bureau.tohoku.ac.jp/sa/wssrlstr.do?clearAccessData=true&contenam=wssrlstr&kjnmnNo=29"
+    ],
+    "js": ["gpa.js"]
+  }]
+}
