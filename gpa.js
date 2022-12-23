@@ -4,8 +4,75 @@ function getGPA() {
     .getElementsByTagName("form")[0]
     .getElementsByTagName("table")[0]
     .getElementsByTagName("tbody")[0]
-    .getElementsByClassName("column_odd");
-  gpas = { total: { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 } };
+    .getElementsByTagName("tr");
+  console.log(l.length);
+  let category = null;
+  gpas = {
+    total: { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 },
+  };
+  for (let i = 0; i < l.length; i++) {
+    if (l[i].className == "column_even") {
+      td = l[i].getElementsByTagName("td")[0];
+      if (!td.innerHTML.includes("&nbsp")) {
+        text = td.getElementsByTagName("strong")[0].textContent;
+        console.log(text);
+        if (text.includes("全学")) {
+          category = "0 一般";
+        } else if (text.includes("専門")) {
+          category = "1 専門";
+        } else {
+          category = "2 その他";
+        }
+      }
+    } else if (l[i].className == "column_odd") {
+      t = l[i].getElementsByTagName("td"); //list of tds
+      /*
+          t[0]: subject
+          t[1]: teacher
+          t[2]: mandatory/optional
+          t[3]: credits
+          t[4]: score
+          t[5]: grade
+          t[6]: year
+          t[7]: Semester/Quarter
+          */
+      time_span = t[6].textContent + t[7].textContent.trim().substr(0, 2);
+      cred = t[3].textContent;
+      cred = Number(cred);
+      grade = t[5].textContent.replace(/\s/g, "");
+      grade = 65315 - grade.charCodeAt(0) + grade.length;
+      point = grade * cred;
+      console.log(time_span);
+      console.log(grade);
+      console.log(cred);
+      if (!isNaN(grade) && grade >= 0) {
+        if (time_span in gpas) {
+          gpas[time_span]["cred"] += cred;
+          gpas[time_span]["point"] += point;
+          gpas[time_span][grade] += cred;
+        } else {
+          gpas[time_span] = { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
+          gpas[time_span]["cred"] += cred;
+          gpas[time_span]["point"] += point;
+          gpas[time_span][grade] += cred;
+        }
+        if (category in gpas) {
+          gpas[category]["cred"] += cred;
+          gpas[category]["point"] += point;
+          gpas[category][grade] += cred;
+        } else {
+          gpas[category] = { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
+          gpas[category]["cred"] += cred;
+          gpas[category]["point"] += point;
+          gpas[category][grade] += cred;
+        }
+        gpas["total"]["cred"] += cred;
+        gpas["total"]["point"] += point;
+        gpas["total"][grade] += cred;
+      }
+    }
+  }
+  return gpas;
   for (var i = 0; i < l.length; i++) {
     t = l[i].getElementsByTagName("td"); //list of tds
     /*
@@ -88,7 +155,7 @@ window.onload = function () {
   let table = document.createElement("table");
   table.setAttribute(
     "style",
-    "margin: 10px 10px; width: 500px;table-layout:fixed; border-collapse: collapse;border: 2px solid black;"
+    "margin: 10px 10px; width: 600px;table-layout:fixed; border-collapse: collapse;border: 2px solid black;"
   );
   table.setAttribute("border", 1);
   //   table.setAttribute("border", 1);
@@ -96,7 +163,7 @@ window.onload = function () {
   let thead = document.createElement("thead");
   let tr = document.createElement("tr");
   let th1 = getNewTh();
-  th1.innerHTML = "期間";
+  th1.innerHTML = "";
   let th2 = getNewTh();
   th2.innerHTML = "GPA";
   let th3 = getNewTh();

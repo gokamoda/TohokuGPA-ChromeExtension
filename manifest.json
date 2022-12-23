@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TohokuGPA",
-  "version": "1.0",
+  "version": "2.0",
   "action": {
     "default_icon":{
       "32": "images/32.png"
