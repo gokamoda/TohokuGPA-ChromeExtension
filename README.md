@@ -8,7 +8,7 @@
 3. 勝手にGPAの計算結果が表示される
 
 ## 2. 導入方法
-1. <a href="https://github.com/gokamoda/TohokuGPA-ChromeExtension/release" target="_blank">こちら</a>からコードをダウンロードする．
+1. [こちら](https://github.com/gokamoda/TohokuGPA-ChromeExtension/archive/refs/heads/main.zip)からコードをダウンロードする．
 2. ダウンロードされたソースコードを解凍しする．
 3. 解凍されたフォルダ好きなディレクトリ/フォルダに移動する．
    - フォルダを削除してしまうと拡張機能が動作しなくなるので，間違って削除してしまわないような場所に動かす．
