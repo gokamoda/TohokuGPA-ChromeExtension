@@ -1,4 +1,4 @@
-# TohokuGPA
+# TohokuGPA v1.2.0
 学務情報システムの成績ページにGPAの計算結果を出力するChrome拡張機能です．
 ## 1. 導入方法
 coming soon...
