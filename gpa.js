@@ -123,17 +123,6 @@ function sortDict(dict) {
   return arr;
 }
 
-function main() {
-  gpa_dict = getGPA();
-  ordered_gpa = sortDict(gpa_dict);
-  console.log(ordered_gpa);
-  for (let term of ordered_gpa) {
-    console.log(term["key"]);
-    console.log(term["value"]["cred"]);
-  }
-  //   console.log(JSON.stringify(gpa_dict, null, "\t"));
-}
-
 function getNewTd() {
   let td = document.createElement("td");
   td.setAttribute("style", "text-align:center;");
