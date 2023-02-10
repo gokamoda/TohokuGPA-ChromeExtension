@@ -5,17 +5,15 @@ function getGPA() {
     .getElementsByTagName("table")[0]
     .getElementsByTagName("tbody")[0]
     .getElementsByTagName("tr");
-  console.log(l.length);
   let category = null;
   gpas = {
-    total: { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 },
+    total: { cred: 0, point: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0},
   };
   for (let i = 0; i < l.length; i++) {
     if (l[i].className == "column_even") {
       td = l[i].getElementsByTagName("td")[0];
       if (!td.innerHTML.includes("&nbsp")) {
         text = td.getElementsByTagName("strong")[0].textContent;
-        console.log(text);
         if (text.includes("全学")) {
           category = "0 一般";
         } else if (text.includes("専門")) {
@@ -42,26 +40,28 @@ function getGPA() {
       grade = t[5].textContent.replace(/\s/g, "");
       grade = 65315 - grade.charCodeAt(0) + grade.length;
       point = grade * cred;
-      console.log(time_span);
-      console.log(grade);
-      console.log(cred);
+      if(grade<-1 || grade > 4){
+        grade = 5
+        point = 0
+      }
       if (!isNaN(grade) && grade >= 0) {
         if (time_span in gpas) {
           gpas[time_span]["cred"] += cred;
           gpas[time_span]["point"] += point;
           gpas[time_span][grade] += cred;
         } else {
-          gpas[time_span] = { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
+          gpas[time_span] = { cred: 0, point: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
           gpas[time_span]["cred"] += cred;
           gpas[time_span]["point"] += point;
           gpas[time_span][grade] += cred;
         }
+
         if (category in gpas) {
           gpas[category]["cred"] += cred;
           gpas[category]["point"] += point;
           gpas[category][grade] += cred;
         } else {
-          gpas[category] = { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
+          gpas[category] = { cred: 0, point: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
           gpas[category]["cred"] += cred;
           gpas[category]["point"] += point;
           gpas[category][grade] += cred;
@@ -70,44 +70,6 @@ function getGPA() {
         gpas["total"]["point"] += point;
         gpas["total"][grade] += cred;
       }
-    }
-  }
-  return gpas;
-  for (var i = 0; i < l.length; i++) {
-    t = l[i].getElementsByTagName("td"); //list of tds
-    /*
-        t[0]: subject
-        t[1]: teacher
-        t[2]: mandatory/optional
-        t[3]: credits
-        t[4]: score
-        t[5]: grade
-        t[6]: year
-        t[7]: Semester/Quarter
-        */
-    time_span = t[6].textContent + t[7].textContent.trim().substr(0, 2);
-    cred = t[3].textContent;
-    cred = Number(cred);
-    grade = t[5].textContent.replace(/\s/g, "");
-    grade = 65315 - grade.charCodeAt(0) + grade.length;
-    point = grade * cred;
-    console.log(time_span);
-    console.log(grade);
-    console.log(cred);
-    if (!isNaN(grade) && grade >= 0) {
-      if (time_span in gpas) {
-        gpas[time_span]["cred"] += cred;
-        gpas[time_span]["point"] += point;
-        gpas[time_span][grade] += cred;
-      } else {
-        gpas[time_span] = { cred: 0, point: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 };
-        gpas[time_span]["cred"] += cred;
-        gpas[time_span]["point"] += point;
-        gpas[time_span][grade] += cred;
-      }
-      gpas["total"]["cred"] += cred;
-      gpas["total"]["point"] += point;
-      gpas["total"][grade] += cred;
     }
   }
   return gpas;
@@ -167,6 +129,8 @@ window.onload = function () {
   th7.innerHTML = "C";
   let th8 = getNewTh();
   th8.innerHTML = "D";
+  let th9 = getNewTh();
+  th9.innerHTML = "他";
   tr.appendChild(th1);
   tr.appendChild(th2);
   tr.appendChild(th3);
@@ -175,6 +139,7 @@ window.onload = function () {
   tr.appendChild(th6);
   tr.appendChild(th7);
   tr.appendChild(th8);
+  tr.appendChild(th9);
   thead.appendChild(tr);
 
   let tbody = document.createElement("tbody");
@@ -184,7 +149,7 @@ window.onload = function () {
     let td1 = getNewTd();
     td1.innerHTML = term["key"];
     let td2 = getNewTd();
-    td2.innerHTML = (term["value"]["point"] / term["value"]["cred"]).toFixed(3);
+    td2.innerHTML = (term["value"]["point"] / (term["value"]["cred"] - term["value"][5])).toFixed(3);
     let td3 = getNewTd();
     td3.innerHTML = term["value"]["cred"];
     let td4 = getNewTd();
@@ -197,6 +162,8 @@ window.onload = function () {
     td7.innerHTML = term["value"][1];
     let td8 = getNewTd();
     td8.innerHTML = term["value"][0];
+    let td9 = getNewTd();
+    td9.innerHTML = term["value"][5];
 
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -206,10 +173,20 @@ window.onload = function () {
     tr.appendChild(td6);
     tr.appendChild(td7);
     tr.appendChild(td8);
+    tr.appendChild(td9);
     tbody.appendChild(tr);
   }
 
   table.appendChild(thead);
   table.appendChild(tbody);
+  let footnote = document.createElement("p");
+  footnote.setAttribute(
+    "style",
+    "margin: 10px 10px; width: 600px; text-align: right;"
+  );
+  
+  footnote.innerHTML = "v1.2.1 <a href='https://twitter.com/go2oo2/status/1606868872946409472', style='color: blue'>about this tool</a>"
+
   document.getElementsByClassName("caption")[0].appendChild(table);
+  document.getElementsByClassName("caption")[0].appendChild(footnote);
 };
