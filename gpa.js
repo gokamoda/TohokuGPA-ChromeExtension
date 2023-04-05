@@ -26,18 +26,19 @@ function getGPA() {
       t = l[i].getElementsByTagName("td"); //list of tds
       /*
           t[0]: subject
-          t[1]: teacher
-          t[2]: mandatory/optional
-          t[3]: credits
-          t[4]: score
-          t[5]: grade
-          t[6]: year
-          t[7]: Semester/Quarter
+          t[1]: media?
+          t[2]: teacher
+          t[3]: mandatory/optional
+          t[4]: credits
+          t[5]: score
+          t[6]: grade
+          t[7]: year
+          t[8]: Semester/Quarter
           */
-      time_span = t[6].textContent + t[7].textContent.trim().substr(0, 2);
-      cred = t[3].textContent;
+      time_span = t[7].textContent + t[8].textContent.trim().substr(0, 2);
+      cred = t[4].textContent;
       cred = Number(cred);
-      grade = t[5].textContent.replace(/\s/g, "");
+      grade = t[6].textContent.replace(/\s/g, "");
       grade = 65315 - grade.charCodeAt(0) + grade.length;
       point = grade * cred;
       if(grade<-1 || grade > 4){
