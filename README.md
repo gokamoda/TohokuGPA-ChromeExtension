@@ -4,6 +4,8 @@
 ![](https://img.shields.io/github/downloads/gokamoda/TohokuGPA-ChromeExtension/total)
 
 学務情報システムの成績ページにGPAの計算結果を出力するChrome拡張機能です．
+![Screenshot](images/example.png)
+
 
 
 ## 1. 実行方法
