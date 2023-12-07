@@ -1,5 +1,7 @@
 # TohokuGPA
 ![GitHub manifest version (path)](https://img.shields.io/github/manifest-json/v/gokamoda/TohokuGPA-ChromeExtension?filename=manifest.json)
+![](https://img.shields.io/badge/clones-%2B100-red)
+![](https://img.shields.io/github/downloads/gokamoda/TohokuGPA-ChromeExtension/total)
 
 学務情報システムの成績ページにGPAの計算結果を出力するChrome拡張機能です．
 
