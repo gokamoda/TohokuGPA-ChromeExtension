@@ -186,7 +186,7 @@ window.onload = function () {
     "margin: 10px 10px; width: 600px; text-align: right;"
   );
   
-  footnote.innerHTML = "v1.3.0 <a href='https://twitter.com/go2oo2/status/1606868872946409472', style='color: blue'>about this tool</a>"
+  footnote.innerHTML = "v1.4.0 <a href='https://twitter.com/go2oo2/status/1606868872946409472', style='color: blue'>about this tool</a>"
 
   document.getElementsByClassName("caption")[0].appendChild(table);
   document.getElementsByClassName("caption")[0].appendChild(footnote);
