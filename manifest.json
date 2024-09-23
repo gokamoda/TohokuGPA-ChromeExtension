@@ -16,6 +16,7 @@
   "content_scripts":[{
     "matches": [
       "https://www.srp.tohoku.ac.jp/sa/wssrlstr.do?clearAccessData=true&contenam=wssrlstr&kjnmnNo=29",
+      "https://rp.auth.tohoku.ac.jp/sa/wssrlstr.do?clearAccessData=true&contenam=wssrlstr&kjnmnNo=29",
       "https://gkms2.bureau.tohoku.ac.jp/sa/wssrlstr.do?clearAccessData=true&contenam=wssrlstr&kjnmnNo=29"
     ],
     "js": ["gpa.js"]
